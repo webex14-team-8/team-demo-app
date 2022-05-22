@@ -1,13 +1,13 @@
 <template>
   <h1 class="home">Home</h1>
   <div class="link">
-    <a href="./quiz">Vueクイズへ</a>
-    <a href="./palette">Vueパレットへ</a>
-    <a href="./memo">Vueメモへ</a>
+    <router-link to="./quiz">Vueクイズへ</router-link>
+    <router-link to="./palette">Vueパレットへ</router-link>
+    <router-link to="./memo">Vueメモへ</router-link>
   </div>
 </template>
 
-<style>
+<style scoped>
 .home {
   width: 95%;
   text-align: center;
@@ -23,6 +23,7 @@ a {
   color: rgb(74, 178, 143);
   font-size: xx-large;
   font-weight: bolder;
+  margin-right: 5%;
 }
 a:hover {
   text-decoration: underline;
