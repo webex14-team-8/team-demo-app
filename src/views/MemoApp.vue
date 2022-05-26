@@ -1,6 +1,6 @@
 <template>
   <h1>Vue メモ</h1>
-  <button v-on:click="deleteAll" class="memo__delete_all">全て削除</button>
+  <button v-on:click="deleteAll">全て削除</button>
   <div id="app" class="memo-list">
     <h1>Vue メモアプリ</h1>
     <li v-for="(memo, index) in memos" v-bind:key="index" class="memo">
@@ -53,10 +53,6 @@ export default {
   margin-right: auto;
 }
 
-.memo-list__container {
-  padding: 0;
-}
-
 .memo {
   display: flex;
   justify-content: space-between;
@@ -68,15 +64,6 @@ export default {
 .memo:hover {
   color: white;
   background-color: #b23b61;
-}
-
-.memo__text {
-  margin-left: 2rem;
-  text-align: left;
-}
-
-.memo__text--done {
-  text-decoration-line: line-through;
 }
 
 .memo__delete {
