@@ -1,38 +1,44 @@
 <template>
   <h1>Vue メモ</h1>
-  <div class="memo-list">
-    <ul class="memo-list__container">
-      <li class="memo">
-        <div class="memo__checkbox">
-          <input type="checkbox" />
-        </div>
-        <div class="memo__text">ひき肉を300g買う</div>
-        <button class="memo__delete">削除</button>
-      </li>
-      <li class="memo">
-        <div class="memo__checkbox">
-          <input type="checkbox" />
-        </div>
-        <div class="memo__text">ホウレンソウを1束買う</div>
-        <button class="memo__delete">削除</button>
-      </li>
-      <li class="memo">
-        <div class="memo__checkbox">
-          <input type="checkbox" />
-        </div>
-        <div class="memo__text">ピーマンを2個買う</div>
-        <button class="memo__delete">削除</button>
-      </li>
-    </ul>
+  <button v-on:click="deleteAll">全て削除</button>
+  <div id="app" class="memo-list">
+    <h1>Vue メモアプリ</h1>
+    <li v-for="(memo, index) in memos" v-bind:key="index" class="memo">
+      {{ index }}:{{ memo.text }}
+      <button v-on:click="deleteMemo(index)" class="memo__delete">削除</button>
+    </li>
     <div class="add-memo-field">
-      <input class="add-memo-field__input" type="text" />
-      <button class="add-memo-field__button">追加</button>
+      <input class="add-memo-field__input" type="text" v-model="inputMemo" />
+      <button class="add-memo-field__button" v-on:click="addMemo">追加</button>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      inputMemo: "",
+      memos: [],
+    }
+  },
+  methods: {
+    addMemo() {
+      if (this.inputMemo !== "") {
+        const memo = { text: this.inputMemo }
+        this.memos.push(memo)
+        this.inputMemo = ""
+      }
+    },
+    deleteMemo(index) {
+      this.memos.splice(index, 1)
+    },
+    deleteAll() {
+      // this.memos = ""だと全消しの後にpushできなくなる
+      this.memos = []
+    },
+  },
+}
 </script>
 
 <style scoped>
@@ -47,10 +53,6 @@ export default {}
   margin-right: auto;
 }
 
-.memo-list__container {
-  padding: 0;
-}
-
 .memo {
   display: flex;
   justify-content: space-between;
@@ -62,15 +64,6 @@ export default {}
 .memo:hover {
   color: white;
   background-color: #b23b61;
-}
-
-.memo__text {
-  margin-left: 2rem;
-  text-align: left;
-}
-
-.memo__text--done {
-  text-decoration-line: line-through;
 }
 
 .memo__delete {
