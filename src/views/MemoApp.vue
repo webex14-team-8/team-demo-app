@@ -34,7 +34,8 @@ export default {
       this.memos.splice(index, 1)
     },
     deleteAll() {
-      this.memos = ""
+      // this.memos = ""だと全消しの後にpushできなくなる
+      this.memos = []
     },
   },
 }
