@@ -1,15 +1,10 @@
 <template>
   <h1>Vue メモ</h1>
+  <button v-on:click="deleteAll" class="memo__delete_all">全て削除</button>
   <div id="app" class="memo-list">
     <h1>Vue メモアプリ</h1>
     <li v-for="(memo, index) in memos" v-bind:key="index" class="memo">
-      <!-- <div class="memo__checkbox">
-        <input type="checkbox" v-model="memo.isDone" />
-      </div> -->
-      <div v-if="memo.isDone" class="memo__text memo__text--done">
-        {{ index }}:{{ memo.text }}
-      </div>
-      <div v-else class="memo__text">{{ index }}:{{ memo.text }}</div>
+      {{ index }}:{{ memo.text }}
       <button v-on:click="deleteMemo(index)" class="memo__delete">削除</button>
     </li>
     <div class="add-memo-field">
@@ -24,31 +19,22 @@ export default {
   data() {
     return {
       inputMemo: "",
-      memos: [
-        // {
-        //   text: "ひき肉を300g買う",
-        //   isDone: false,
-        // },
-        // {
-        //   text: "ホウレンソウを1束買う",
-        //   isDone: false,
-        // },
-        // {
-        //   text: "ピーマンを2個買う",
-        //   isDone: false,
-        // },
-      ],
+      memos: [],
     }
   },
   methods: {
     addMemo() {
       if (this.inputMemo !== "") {
-        const memo = { text: this.inputMemo, isDone: false }
+        const memo = { text: this.inputMemo }
         this.memos.push(memo)
+        this.inputMemo = ""
       }
     },
     deleteMemo(index) {
       this.memos.splice(index, 1)
+    },
+    deleteAll() {
+      this.memos = ""
     },
   },
 }
